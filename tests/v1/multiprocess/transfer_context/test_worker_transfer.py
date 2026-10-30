@@ -17,6 +17,7 @@ from lmcache.v1.multiprocess.futures import MessagingFuture
 from lmcache.v1.multiprocess.protocols.server_module import (
     ServerModuleCallResponse,
 )
+from lmcache.v1.multiprocess.token_codec import pack_token_ids
 from lmcache.v1.multiprocess.transfer_context import worker_transfer as core
 from lmcache_layerwise import debug
 from lmcache_layerwise.v1.multiprocess import protocol
@@ -157,7 +158,7 @@ def _registered(client, depths=(0, 1, 2, 3)):
 
 
 def _key():
-    return IPCCacheServerKey("m", 1, 0, (1, 2), 0, 2, "req")
+    return IPCCacheServerKey("m", 1, 0, pack_token_ids([1, 2]), 0, 2, "req")
 
 
 def _submit(ctx, skip=0):

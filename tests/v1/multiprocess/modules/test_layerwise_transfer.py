@@ -29,6 +29,7 @@ from lmcache.v1.multiprocess.modules.lmcache_driven_transfer import (
 from lmcache.v1.multiprocess.protocols.server_module import (
     ServerModuleCallRequest,
 )
+from lmcache.v1.multiprocess.token_codec import pack_token_ids
 from lmcache_layerwise.v1.multiprocess import protocol
 from lmcache_layerwise.v1.multiprocess.modules import layerwise_transfer
 from lmcache_layerwise.v1.multiprocess.modules.layerwise_transfer import (
@@ -70,7 +71,7 @@ class _NativeBackend(_Backend):
 
 
 def _key():
-    return IPCCacheServerKey("m", 1, 0, (1, 2), 0, 2, "req")
+    return IPCCacheServerKey("m", 1, 0, pack_token_ids([1, 2]), 0, 2, "req")
 
 
 @pytest.fixture
