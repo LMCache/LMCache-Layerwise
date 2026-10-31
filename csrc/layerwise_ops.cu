@@ -85,7 +85,7 @@ constexpr int kUploadSlots = 4;
 // and upload nothing, while a different kernel group gets a slot of its own.
 // Wrapping past kUploadSlots distinct arrays waits on that slot's previous
 // upload, so correctness never depends on the host staying behind the device.
-const int64_t* upload_object_ptrs(const int64_t* object_ptrs, int num_objects,
+const int64_t* upload_object_ptrs(const uintptr_t* object_ptrs, int num_objects,
                                   int device_index, cudaStream_t stream) {
   TORCH_CHECK(num_objects >= 1 && num_objects <= kMaxObjects,
               "layer-wise launches support 1 to ", kMaxObjects,
