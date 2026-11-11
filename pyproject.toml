@@ -1,0 +1,24 @@
+[build-system]
+# Build without isolation (pip install --no-build-isolation) so the extension
+# compiles against the torch and lmcache that are installed.
+requires = ["setuptools>=77", "wheel", "torch", "lmcache"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lmcache-layerwise"
+version = "0.1.0.dev0"
+description = "Layer-wise KV retrieve for LMCache multiprocess mode"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+# Needs an lmcache that ships the native extension API (lmcache.get_include()
+# and the lmcache.cuda_ops._ext_api capsule).
+dependencies = ["lmcache"]
+
+[tool.setuptools.packages.find]
+include = ["lmcache_layerwise*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["cuda: needs a CUDA device and the built lmcache_layerwise._C"]
